@@ -3,7 +3,7 @@ Brcoin integration/staging tree
 
 http://www.brcoin.info
 
-Copyright (c) 2009-2013 Bitcoin Developers
+Copyright (c) 2009-2013 BRCoin Developers
 
 What is Brcoin?
 ----------------
@@ -23,15 +23,15 @@ License
 Brcoin is released under the terms of the MIT license. See `COPYING` for more
 information or see http://opensource.org/licenses/MIT.
 
-Brcoin is based on Bitcoin.
-Its development tracks Bitcoin's, the following information applies to Bitcoin's developemnt.
+Brcoin is based on BRCoin.
+Its development tracks BRCoin's, the following information applies to BRCoin's developemnt.
 Development process
 -------------------
 
 Developers work in their own trees, then submit pull requests when they think
 their feature or bug fix is ready.
 
-If it is a simple/trivial/non-controversial change, then one of the Bitcoin
+If it is a simple/trivial/non-controversial change, then one of the BRCoin
 development team members simply pulls it.
 
 
