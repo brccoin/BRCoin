@@ -1076,15 +1076,19 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 {
     int64 nSubsidy = 100 * COIN;
 
+    if (nHeight >= 21070 && nHeight < 21200) {
+        nSubsidy = 1 * COIN;
+    }
+
     // Subsidy is cut in half every 262800 blocks, which will occur approximately every 4 years
     nSubsidy >>= (nHeight / 262800);
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-static const int64 nTargetSpacing = 10 * 60;
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+static int64 nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+static int64 nTargetSpacing = 10 * 60;
+static int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 //
 // minimum amount of work that could possibly be required nTime after
@@ -1119,6 +1123,12 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
+    if (pindexLast->nHeight >= 21070) {
+        nTargetTimespan = 4 * 60 * 60; // Retarget a cada 4 horas
+        nTargetSpacing = 2 * 60; // Tempo de bloco 2 minutos
+        nInterval = nTargetTimespan / nTargetSpacing;
+    }
+
     // Only change once per interval
     if ((pindexLast->nHeight+1) % nInterval != 0)
     {
@@ -1140,6 +1150,10 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         }
 
         return pindexLast->nBits;
+    }
+
+    if (pindexLast->nHeight >= 21070 && pindexLast->nHeight < 21200) {
+        return nProofOfWorkLimit;
     }
 
     // Go back by what we want to be 14 days worth of blocks
